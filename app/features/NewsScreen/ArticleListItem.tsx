@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
 import {Article} from '../../types';
 import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
@@ -35,19 +35,33 @@ export default ({item}: {item: Article}) => {
     );
   };
 
+  const renderImage = () => {
+    if (item.urlToImage) {
+      return (
+        <Image
+          source={{uri: item.urlToImage}}
+          resizeMode="contain"
+          style={{height: 60, width: 100}}
+        />
+      );
+    }
+
+    return (
+      <View style={{height: 60, width: 100, backgroundColor: '#ececec'}} />
+    );
+  };
+
   return (
     <TouchableOpacity onPress={onArticleNavigate}>
       <View style={{marginVertical: 24}}>
         <View style={{flexDirection: 'row'}}>
-          <View>
-            <Image
-              source={item?.urlToImage}
-              resizeMode="contain"
-              style={{height: 24, width: 24}}
-            />
-          </View>
-          <View>
-            <Text style={{fontSize: 24, fontWeight: 'bold'}}>{item.title}</Text>
+          {renderImage()}
+          <View style={{flex: 1, marginLeft: 8}}>
+            <Text
+              textBreakStrategy="simple"
+              style={{fontSize: 16, fontWeight: 'bold', textAlign: 'left'}}>
+              {item.title}
+            </Text>
             {!!item.publishedAt && (
               <Text>{parseDateToString(item.publishedAt)}</Text>
             )}
