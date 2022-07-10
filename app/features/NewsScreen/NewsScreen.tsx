@@ -14,27 +14,31 @@ export default () => {
     undefined,
   );
 
-  const getArticlesAndUpdateState = async (params?: {
-    category?: string;
+  const [searchParams, setSearchParams] = useState<{
     q?: string;
-  }) => {
-    const data = await getHeadlines({...params});
+    category?: string;
+  } | null>(null);
+
+  const getArticlesAndUpdateState = async () => {
+    const data = await getHeadlines({...searchParams});
     setArticlesData(data);
   };
 
   const onCategoryFilterPress = async (category: string) => {
-    await getArticlesAndUpdateState({category: category});
+    setSearchParams({...searchParams, category: category});
   };
 
   useEffect(() => {
-    (async () => {
-      getArticlesAndUpdateState();
-    })();
+    getArticlesAndUpdateState();
   }, []);
 
   useEffect(() => {
+    getArticlesAndUpdateState();
+  }, [searchParams]);
+
+  useEffect(() => {
     if (searchInputValue.length > 3) {
-      getArticlesAndUpdateState({q: searchInputValue});
+      setSearchParams({...searchParams, q: searchInputValue});
     }
   }, [searchInputValue]);
 
@@ -43,8 +47,12 @@ export default () => {
   );
 
   const renderCategpories = () => {
-    return categories.map((cat, index) => (
-      <CategoryBtn text={cat} key={index} onPress={onCategoryFilterPress} />
+    return categories.map((category, index) => (
+      <CategoryBtn
+        text={category}
+        key={index}
+        onPress={onCategoryFilterPress}
+      />
     ));
   };
 
@@ -56,9 +64,11 @@ export default () => {
         <View style={styles.categoryContainer}>{renderCategpories()}</View>
       </View>
       {articlesData && (
-        <View style={styles.listContaier}>
-          <FlatList data={articlesData} renderItem={renderItem} />
-        </View>
+        <FlatList
+          style={{marginBottom: 400}}
+          data={articlesData}
+          renderItem={renderItem}
+        />
       )}
     </View>
   );
@@ -72,5 +82,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  listContaier: {marginTop: 24},
+  listContaier: {
+    marginTop: 24,
+    flex: 1,
+  },
 });
