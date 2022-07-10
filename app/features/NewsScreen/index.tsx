@@ -1,9 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import SearchBar from '../../common/SearchBar';
+import {getArticles} from '../../services/Api';
+import {Source} from '../../types';
 
 export default () => {
   const [searchInputValue, setSearchInputValue] = useState('');
+  const [articlesData, setArticlesData] = useState<Source[] | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    (async () => {
+      const data = await getArticles();
+      console.log('from coomponent ===>', data);
+    })();
+  }, []);
 
   return (
     <View style={{padding: 24}}>
