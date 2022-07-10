@@ -40,20 +40,45 @@ export default () => {
     if (searchInputValue.length > 3) {
       setSearchParams({...searchParams, q: searchInputValue});
     }
+
+    if (searchInputValue.length === 0) {
+      setSearchParams({...searchParams, q: ''});
+    }
   }, [searchInputValue]);
 
   const renderItem = ({item, index}: {item: Article; index: number}) => (
     <ArticleListItem item={item} key={index} />
   );
 
+  const clearAllFilters = () => {
+    setSearchInputValue('');
+    setSearchParams({q: '', category: ''});
+  };
+
   const renderCategpories = () => {
-    return categories.map((category, index) => (
-      <CategoryBtn
-        text={category}
-        key={index}
-        onPress={onCategoryFilterPress}
-      />
-    ));
+    return categories.map((category, index) => {
+      const isActive = searchParams?.category === category;
+
+      if (category === 'clearAll') {
+        return (
+          <CategoryBtn
+            isActive={isActive}
+            text={category}
+            key={index}
+            onPress={clearAllFilters}
+          />
+        );
+      }
+
+      return (
+        <CategoryBtn
+          isActive={isActive}
+          text={category}
+          key={index}
+          onPress={onCategoryFilterPress}
+        />
+      );
+    });
   };
 
   return (

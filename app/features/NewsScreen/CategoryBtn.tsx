@@ -4,12 +4,16 @@ import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 export default ({
   onPress,
   text,
+  isActive,
 }: {
   onPress: (category: string) => void;
   text: string;
+  isActive: boolean;
 }) => {
   return (
-    <TouchableOpacity onPress={() => onPress(text)} style={styles.btn}>
+    <TouchableOpacity
+      onPress={() => onPress(text)}
+      style={[{backgroundColor: isActive ? '#ececec' : 'white'}, styles.btn]}>
       <Text>{text}</Text>
     </TouchableOpacity>
   );
