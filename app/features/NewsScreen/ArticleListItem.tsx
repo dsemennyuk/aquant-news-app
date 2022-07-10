@@ -23,7 +23,7 @@ export default ({item}: {item: Article}) => {
   const onArticleNavigate = () => {
     navigation.navigate(
       //@ts-ignore TODO: navigation typings
-      {name: 'Article'},
+      'Article',
       {
         title: item.title,
         date: item.publishedAt,
