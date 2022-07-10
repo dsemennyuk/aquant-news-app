@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import SearchBar from '../../common/SearchBar';
 import {categories} from '../../const';
 import {getHeadlines} from '../../services/Api';
-import {Article, Category} from '../../types';
+import {Article} from '../../types';
 import ArticleListItem from './ArticleListItem';
 import CategoryBtn from './CategoryBtn';
 import Header from './Header';
