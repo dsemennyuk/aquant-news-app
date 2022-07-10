@@ -1,21 +1,9 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {Article} from '../../types';
-import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
-
-// TODO: move out to helpers
-export const parseDateToString = (date: Date) => {
-  return moment(date).fromNow();
-};
-
-const truncDescriptionText = (text: string) => {
-  if (text.length < 80) {
-    return text;
-  } else {
-    return `${text.substring(0, 77)}...`;
-  }
-};
+import {parseDateToString} from '../../helpers/momentHelpers';
+import {truncDescriptionText} from '../../helpers/textHelpers';
 
 export default ({item}: {item: Article}) => {
   const navigation = useNavigation();
@@ -41,14 +29,12 @@ export default ({item}: {item: Article}) => {
         <Image
           source={{uri: item.urlToImage}}
           resizeMode="contain"
-          style={{height: 60, width: 100}}
+          style={styles.img}
         />
       );
     }
 
-    return (
-      <View style={{height: 60, width: 100, backgroundColor: '#ececec'}} />
-    );
+    return <View style={styles.mockImg} />;
   };
 
   return (
@@ -74,3 +60,15 @@ export default ({item}: {item: Article}) => {
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  mockImg: {
+    height: 60,
+    width: 100,
+    backgroundColor: '#ececec',
+  },
+  img: {
+    height: 60,
+    width: 100,
+  },
+});

@@ -1,8 +1,8 @@
 import {RouteProp} from '@react-navigation/native';
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {parseDateToString} from '../../helpers/momentHelpers';
 import {Article} from '../../types';
-import {parseDateToString} from '../NewsScreen/ArticleListItem';
 
 // @ts-ignore FIX NAV TYPES!
 export default ({route}: {route: RouteProp<Article>}) => {
@@ -17,7 +17,7 @@ export default ({route}: {route: RouteProp<Article>}) => {
         <Text style={styles.title}>{title}</Text>
       </View>
       <View style={{padding: 24}}>
-        <Text style={{}}>{parseDateToString(date)}</Text>
+        <Text>{parseDateToString(date)}</Text>
         <Text style={{marginVertical: 8}}>{author}</Text>
         <Text style={styles.text}>{description}</Text>
         <Text style={styles.text}>{content}</Text>
