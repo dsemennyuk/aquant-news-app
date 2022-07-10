@@ -10,7 +10,7 @@
 
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import NewsScreen from './app/features/NewsScreen';
+import NewsScreen from './app/features/NewsScreen/NewsScreen';
 
 const App = () => {
   return (

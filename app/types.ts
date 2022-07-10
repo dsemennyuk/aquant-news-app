@@ -1,7 +1,13 @@
-export interface News {
-  status?: string;
-  sources?: Source[];
+export enum Category {
+  Business = 'business',
+  Entertainment = 'entertainment',
+  General = 'general',
+  Health = 'health',
+  Science = 'science',
+  Sports = 'sports',
+  Technology = 'technology',
 }
+
 
 export interface Source {
   id?: string;
@@ -13,12 +19,26 @@ export interface Source {
   country?: string;
 }
 
-export enum Category {
-  Business = 'business',
-  Entertainment = 'entertainment',
-  General = 'general',
-  Health = 'health',
-  Science = 'science',
-  Sports = 'sports',
-  Technology = 'technology',
+export interface ArticlesType {
+  status?:       string;
+  totalResults?: number;
+  articles?:     Article[];
 }
+
+export interface Article {
+  source?:      Source;
+  author?:      null | string;
+  title?:       string;
+  description?: null | string;
+  url?:         string;
+  urlToImage?:  null | string;
+  publishedAt?: Date;
+  content?:     null | string;
+}
+
+
+export interface SourceType {
+  id?:   null | string;
+  name?: string;
+}
+
